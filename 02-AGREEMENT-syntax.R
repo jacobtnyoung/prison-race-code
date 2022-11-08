@@ -1,14 +1,6 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
-# ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !  #
-# This is the REVISION syntax based on reviewer comments.
-# ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !  #
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
-
 # ############################################################################################# #
 # This code creates the agreement matrices for the inmate code and race items of the NIJ project.
 # ############################################################################################# #
-
-# This is the REVISED syntax based on reviewer comments.
 
 # ================================================================== #
 # Clear the workspace and load the libraries.
@@ -18,8 +10,7 @@ rm( list = ls() )
 # ================================================================== #
 # Load the data.
 
-setwd( "/Users/jyoung20/Dropbox (ASU)/Living and Working in Max. (NIJ 2017)/NIJ_LWMAX_Data_Syntax/NIJ_LWMAX_CCA_PROJECT/NIJ_LWMAX_CCA_PROJECT_data/" )
-load( "prisoner_racial_code_recoded_REVISION.R" )
+load( here::here( "prisoner_racial_code_recoded_REVISION.R" ) )
 
 
 # ================================================================== #
@@ -117,8 +108,7 @@ print( ggheatmap.RC )
 # ================================================================== #
 # Save the file.
 
-setwd( "/Users/jyoung20/Dropbox (ASU)/Living and Working in Max. (NIJ 2017)/NIJ_LWMAX_Data_Syntax/NIJ_LWMAX_CCA_PROJECT/NIJ_LWMAX_CCA_PROJECT_data/" )
-save.image( "prisoner_racial_code_recoded_mats_REVISION.R" )
+save.image( here::here( "prisoner_racial_code_recoded_mats_REVISION.R" ) )
 
 
 # ############################################################################################# #
