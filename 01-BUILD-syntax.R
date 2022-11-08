@@ -1,25 +1,14 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
-# ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !  #
-# This is the REVISION syntax based on reviewer comments.
-# ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !  #
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
-
-# ################################################################## #
-# Prisoner/Racial Code Paper.
-# ################################################################## #
-
 # This syntax file takes the .csv file for the prisoner code and racial code items and preps them for analysis.
 
 # ================================================================== #
 # Clear the workspace and load the libraries.
 
-rm(list = ls())
+rm( list = ls() )
 
 # ================================================================== #
 # Load the data.
 
-setwd( "/Users/jyoung20/Dropbox (ASU)/Living and Working in Max. (NIJ 2017)/NIJ_LWMAX_Data_Syntax/NIJ_LWMAX_CCA_PROJECT/NIJ_LWMAX_CCA_PROJECT_data/" )
-dat <- as.matrix( read.csv( "prisoner_racial_code_items.csv", as.is=TRUE, header=TRUE ) )
+dat <- as.matrix( read.csv( here::here( "prisoner_racial_code_items.csv", as.is=TRUE, header=TRUE ) ) 0
 
 # Create the separate data files.
 p.code <- dat[,c( 2:10 )]
@@ -101,8 +90,7 @@ r.code   <- cbind( dat[,1],r.code )
 # ================================================================== #
 # Save the file.
 
-setwd( "/Users/jyoung20/Dropbox (ASU)/Living and Working in Max. (NIJ 2017)/NIJ_LWMAX_Data_Syntax/NIJ_LWMAX_CCA_PROJECT/NIJ_LWMAX_CCA_PROJECT_data/" )
-save.image( "prisoner_racial_code_recoded_REVISION.R" )
+save.image( here::here( "prisoner_racial_code_recoded_REVISION.R" ) )
 
 
 # ################################################################## #
