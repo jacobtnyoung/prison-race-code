@@ -12,8 +12,7 @@ rm( list = ls() )
 # ================================================================== #
 # Load the data.
 
-setwd( "/Users/jyoung20/Dropbox (ASU)/Living and Working in Max. (NIJ 2017)/NIJ_LWMAX_Data_Syntax/NIJ_LWMAX_CCA_PROJECT/NIJ_LWMAX_CCA_PROJECT_data/" )
-load( "prisoner_racial_code_recoded_mats_REVISION.R" )
+load( here::here( "prisoner_racial_code_recoded_mats_REVISION.R" ) )
 
 # ================================================================== #
 # CCA Models.
@@ -141,9 +140,4 @@ grid.arrange( a, b, a2, b2, c, c2, nrow = 3, ncol = 2 )
 
 # Export these results to an outsheet for stata.
 data.out <- merge( df, df2, by = "id")
-write.csv(data.out,"/Users/jyoung20/Dropbox (ASU)/Living and Working in Max. (NIJ 2017)/NIJ_LWMAX_Data_Syntax/NIJ_LWMAX_CCA_PROJECT/NIJ_LWMAX_CCA_PROJECT_data/prison_code_competencies_REVISION.csv")
-
-
-# ################# #
-# END OF SYNTAX FILE.
-# ################# #
+write.csv(data.out, here::here( "prison_code_competencies_REVISION.csv" ) )
