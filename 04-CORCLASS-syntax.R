@@ -1,9 +1,3 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
-# ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !  #
-# This is the REVISION syntax based on reviewer comments.
-# ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !  #
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
-
 # ############################################################################################# #
 # This code uses the corclass package for the inmate code and race items of the NIJ project.
 # ############################################################################################# #
@@ -18,8 +12,7 @@ set.seed( 12345 )
 # ================================================================== #
 # Load the data.
 
-setwd( "/Users/jyoung20/Dropbox (ASU)/Living and Working in Max. (NIJ 2017)/NIJ_LWMAX_Data_Syntax/NIJ_LWMAX_CCA_PROJECT/NIJ_LWMAX_CCA_PROJECT_data/" )
-load( "prisoner_racial_code_recoded_mats_REVISION.R" )
+load( here::here(  "prisoner_racial_code_recoded_mats_REVISION.R" ) )
 
 # Define the variable names.
 p.names <- c( "PC1","PC2","PC3","PC4","PC5","PC6","PC7","PC8","PC9" )
@@ -94,9 +87,4 @@ hist( mod.scores )
 # ================================================================== #
 # Save the file before plotting.
 
-save.image( "prisoner_racial_code_corclass_REVISION.R" )
-
-
-# ################# #
-# END OF SYNTAX FILE.
-# ################# #
+save.image( here::here( "prisoner_racial_code_corclass_REVISION.R" ) )
