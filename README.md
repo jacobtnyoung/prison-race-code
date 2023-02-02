@@ -25,6 +25,6 @@ This repository contains the files used to create the analyses for the manuscrip
 
 [Create the plots used in the manuscript](05-NET-PLOTS-syntax.R)
 
-[Create the example data for the hypothetical](06-EXAMPLE-syntax.R)
+[Create the example data for the hypothetical schemas](06-EXAMPLE-syntax.R)
 
 <br>
