@@ -2,7 +2,7 @@
 
 <br>
 
-## Authors: Jacob T.N. Young, Travis J. Meyers, Stephanie J. Morse
+## Authors: [Jacob T.N. Young](https://jacobtnyoung.github.io/), [Travis J. Meyers](https://scholar.google.com/citations?user=WgV65qcAAAAJ&hl=en&oi=ao), [Stephanie J. Morse](https://www.anselm.edu/faculty-directory/stephanie-morse)
 
 ### ***Abstract***
 
