@@ -72,16 +72,7 @@ library( intergraph )
 library( igraph )
 
 i.c.net <- asIgraph( c.net )
-modularity( i.c.net, c.code.cor$membership )
-
-# Modularity score of a random value.
-mod.scores <- NULL
-n.mod.scores <- 5000
-for( i in 1:n.mod.scores ){
-  mod.scores[i] <- modularity( i.c.net, sample( c( 1,2,3,4 ), dim( c.mat )[1], replace = TRUE ) )  
-}
-mean( mod.scores )
-hist( mod.scores )
+modularity( i.c.net, c.code.cor$membership, weights = get.edge.attribute(c.net$mel,"cor")  )
 
 
 # ================================================================== #

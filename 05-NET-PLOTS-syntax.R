@@ -29,9 +29,9 @@ library( network )
 # ++++++++++++++++++++++++++++++ # 
 # Create the list of the modules.
 cor.list <- NULL
-cutoff <- 0.15 # cutoff value for correlations in the graph.
+cutoff <- 0.20 # cutoff value for correlations in the graph.
 n.modules <- length( c.code.cor$modules )
-for ( i in 1:n.modules ){
+for( i in 1:n.modules ){
   cor.list[[i]] <- c.code.cor$modules[[i]]$cormat
   cor.list[[i]][abs(cor.list[[i]]) < cutoff] <- 0
 }
@@ -48,7 +48,7 @@ cor.to.net.create <- function( cormat ){
 
 # Create the list of networks.
 net.list <- NULL
-for (i in 1:n.modules ){
+for(i in 1:n.modules ){
   net.list[[i]] <- cor.to.net.create( cor.list[[i]] )
 }
 
@@ -69,18 +69,35 @@ edge.col.create <- function( net.edges ){
   vec.to.color <- as.vector( abs( net.edges ) )
   vec.to.color <- 1 - vec.to.color # subtract 1 to flip the grey function scale.
   edge.cols <- grey( vec.to.color )
-  edge.cols <- matrix( edge.cols, nrow = dim( net.edges )[1] )
   return( edge.cols )
 }
 
-# Create a list of matrices of edge shadings.
+# Create a list of edges for edge shadings.
 edge.col.list <- NULL
 n.modules <- length( c.code.cor$modules )
-for (i in 1:n.modules ){
+for( i in 1:n.modules ){
   edge.col.list[[i]] <- edge.col.create( 
-    as.sociomatrix( net.list[[i]], attrname = "cor" ) 
-    )
+    as.edgelist(net.list[[i]], attrname = "cor")[,3] 
+  ) 
 }
+
+
+# ++++++++++++++++++++++++++++++ # 
+# Create a function to create the edge types for the plots.
+edge.type.create <- function( vect, type1 = 1, type2 = 3 ){
+  edge.type <- vect
+  edge.type[ vect > 0 ]   <- type1
+  edge.type[ vect < 0 ]   <- type2
+  return( edge.type )
+}
+
+# Create a list of edge types.
+edge.type.list <- NULL
+n.modules <- length( c.code.cor$modules )
+for( i in 1:n.modules ){
+  edge.type.list[[i]] <- edge.type.create( as.edgelist(net.list[[i]], attrname = "cor")[,3] )
+}
+
 
 
 # ++++++++++++++++++++++++++++++ # 
@@ -131,14 +148,12 @@ net.cords <- gplot( net.list[[1]], mode = "circle", gmode = "graph" )
 
 op <- par( mai = c( 0.01,0.01,0.01,0.01 ), omi = c( 0.1,0.1,0.1,0.1 ), mfrow=c( 2,2 ) )
 
-for (i in 1:n.modules ){
+for( i in 1:n.modules ){
   gplot( net.list[[i]],
          # Edges.
          edge.lwd = edge.rescale( cor.list[[i]], 0.1, 5),
          edge.lty = edge.type.list[[i]],
          edge.col = edge.col.list[[i]],
-         usecurve = TRUE,
-         edge.curve = 0.05,
          
          # Vertices.
          vertex.col = c(
@@ -153,51 +168,24 @@ for (i in 1:n.modules ){
          label.cex = 1,
          
          # Misc stuff.
-         gmode = "graph",
-         #coord = net.cords
+         gmode = "graph"
   )
 }
 
 par( op )
 
+# Report the average correlation for each network.
 mean( abs( as.sociomatrix( net.list[[1]], attrname = "cor" ) ) )
 mean( abs( as.sociomatrix( net.list[[2]], attrname = "cor" ) ) )
 mean( abs( as.sociomatrix( net.list[[3]], attrname = "cor" ) ) )
 mean( abs( as.sociomatrix( net.list[[4]], attrname = "cor" ) ) )
 
+# Report the mean correlation for each item for the table.
+round( apply( c.code.cor$modules[[1]]$cormat, 2, mean ), 2 )
+round( apply( c.code.cor$modules[[2]]$cormat, 2, mean ), 2 )
+round( apply( c.code.cor$modules[[3]]$cormat, 2, mean ), 2 )
+round( apply( c.code.cor$modules[[4]]$cormat, 2, mean ), 2 )
 
-# This is for each single plot (change the #:# in the for statement to toggle).
-set.seed( 12345 )
-op <- par( mai = c( 0.2,0.2,0.8,0.2 ), omi = c( 0.1,0.1,0.1,0.1 ) )
-
-for (i in 1:4 ){
-  gplot( net.list[[i]],
-         # Edges.
-         edge.lwd = edge.rescale( cor.list[[i]], 0.1, 5),
-         edge.lty = edge.type.list[[i]],
-         edge.col = edge.col.list[[i]],
-         usecurve = TRUE,
-         edge.curve = 0.05,
-         
-         # Vertices.
-         vertex.col = c(
-           rep( rgb( 0.2, 0.4, 0.2, 0.6 ), length.out = length( p.names ) ),
-           rep( rgb( 0.9, 0.2, 0.2, 0.6 ), length.out = length( r.names ) ) 
-         ),
-         vertex.cex = rowMeans( abs( as.sociomatrix( net.list[[i]], attrname = "cor" ) ) )*6,
-         
-         # Labels.
-         label = network.vertex.names( net.list[[i]] ),
-         label.pos = 5,
-         label.cex = 1,
-         
-         # Misc stuff.
-         gmode = "graph",
-         #coord = net.cords
-  )
-}
-
-par( op )
 
 
 # ================================================================== #
